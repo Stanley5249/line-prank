@@ -91,6 +91,16 @@
             return;
           }
 
+          const context = liff.getContext();
+          const validTypes = ["utou", "group", "room"];
+
+          if (!context || !validTypes.includes(context.type)) {
+            spinner.style.display = "none";
+            msgEl.innerText =
+              "錯誤：無法在此處發送訊息。\n請勿在「Keep 筆記」、官方帳號或社群開啟，請在一般的 1 對 1 聊天室或群組中點擊此連結。";
+            return;
+          }
+
           await liff.sendMessages([{ type: "text", text: text }]);
           liff.closeWindow();
         } catch (err) {
